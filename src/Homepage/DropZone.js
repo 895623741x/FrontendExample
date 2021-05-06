@@ -30,7 +30,7 @@ function DropZone(props) {
 			data.append("files", e.target.files[x]);
 		}
 		axios
-			.post("http://localhost:8000/merge", data)
+			.post("https://fullstacktest2.herokuapp.com/merge", data)
 			.then((res) => {
 				if (res.statusText === "OK") {
 					setIsImageLoaded(true);
@@ -96,7 +96,7 @@ function DropZone(props) {
 		for (let x = 0; x < uploadedFile.length; x++) {
 			data.append("files", uploadedFile[x]);
 		}
-		axios.post("http://localhost:8000/merge", data).then((res) => {
+		axios.post("https://fullstacktest2.herokuapp.com/merge", data).then((res) => {
 			// then print response status
 			if (res.statusText === "OK") {
 				setIsMerge(true);
@@ -110,7 +110,7 @@ function DropZone(props) {
 	};
 
 	const downloadHandler = () => {
-		axios.get("http://localhost:8000/download", { responseType: "arraybuffer" }).then((res) => {
+		axios.get("https://fullstacktest2.herokuapp.com/download", { responseType: "arraybuffer" }).then((res) => {
 			const url = window.URL.createObjectURL(new Blob([res.data], { type: "application/pdf" }));
 			var link = document.createElement("a");
 			link.href = url;
