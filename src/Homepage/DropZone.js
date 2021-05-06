@@ -132,7 +132,38 @@ function DropZone(props) {
 					</div>
 				</form>
 			) : (
-				<div></div>
+				<div>
+					<DragDropContext onDragEnd={onDragEndHandler}>
+						<Droppable droppableId="droppable" direction="horizontal">
+							{(provided, snapshot) => (
+								<div
+									ref={provided.innerRef}
+									style={getListStyle(snapshot.isDraggingOver)}
+									{...provided.droppableProps}
+									className="list"
+								>
+									{Array.from(uploadedFile).map((file, index) => (
+										<Draggable key={file.name} draggableId={file.name} index={index}>
+											{(provided, snapshot) => (
+												<div
+													ref={provided.innerRef}
+													{...provided.draggableProps}
+													{...provided.dragHandleProps}
+													style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+												>
+													<RotateLeftIcon />
+
+													<p className="p">{file.name}</p>
+												</div>
+											)}
+										</Draggable>
+									))}
+									{provided.placeholder}
+								</div>
+							)}
+						</Droppable>
+					</DragDropContext>
+				</div>
 			)}
 		</div>
 	);
