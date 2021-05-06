@@ -125,11 +125,15 @@ function DropZone(props) {
 
 	return (
 		<div>
-			<form id="#" action="/merge" method="post" encType="multipart/form-data">
-				<div className="files">
-					<input type="file" id="file-input" name="files" className="form-control" multiple onChange={fileHandler} />
-				</div>
-			</form>
+			{!isUploaded ? (
+				<form id="#" action="/merge" method="post" encType="multipart/form-data">
+					<div className="files">
+						<input type="file" id="file-input" name="files" className="form-control" multiple onChange={fileHandler} />
+					</div>
+				</form>
+			) : (
+				<div></div>
+			)}
 		</div>
 	);
 }
