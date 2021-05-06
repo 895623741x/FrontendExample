@@ -74,8 +74,8 @@
 	height: 3px;
 	border-radius: 7px;
 	background-color: rgba(226, 95, 95, 0.884);
-	-webkit-animation: progress-animation 6s forwards;
-	animation: progress-animation 6s forwards;
+	-webkit-animation: progress-animation 3s forwards;
+	animation: progress-animation 3s forwards;
 }
 
 @-webkit-keyframes progress-animation {

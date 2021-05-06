@@ -33,12 +33,10 @@ function DropZone(props) {
 			.post("http://localhost:8000/merge", data)
 			.then((res) => {
 				if (res.statusText === "OK") {
-					setTimeout(() => {
-						setIsImageLoaded(true);
-					}, 2000);
+					setIsImageLoaded(true);
 				}
 				// then print response status
-				if (res.status === 500) {
+				else {
 					alert("png/jpg/jpeg files only, please upload the correct files");
 				}
 				console.log(res.statusText);
@@ -92,18 +90,6 @@ function DropZone(props) {
 		overflow: "auto",
 	});
 
-	// const uploadHandler = () => {
-	// 	const data = new FormData();
-	// 	for (let x = 0; x < selectedFile.length; x++) {
-	// 		data.append("file", selectedFile[x]);
-	// 	}
-
-	// 	axios.post("http://localhost:8000/upload", data).then((res) => {
-	// 		// then print response status
-	// 		console.log(res.statusText);
-	// 	});
-	// };
-
 	const mergeHandler = () => {
 		const data = new FormData();
 		console.log(uploadedFile);
@@ -112,16 +98,15 @@ function DropZone(props) {
 		}
 		axios.post("http://localhost:8000/merge", data).then((res) => {
 			// then print response status
-			if (res.status === 500) {
+			if (res.statusText === "OK") {
+				setIsMerge(true);
+			} else {
 				alert("png/jpg/jpeg files only, please upload the correct files");
 			}
 			console.log(res.statusText);
 			console.log(res);
 		});
 		setIsMerging(true);
-		setTimeout(() => {
-			setIsMerge(true);
-		}, 4000);
 	};
 
 	const downloadHandler = () => {
@@ -139,7 +124,7 @@ function DropZone(props) {
 	console.log(uploadedFile);
 	return (
 		<div className="upload-container">
-			{/* <h1>JPG to PDF Converter</h1>
+			<h1>JPG to PDF Converter</h1>
 			{!isUploaded ? <></> : <div className="progress-bar" />}
 			<div className="col-md-6">
 				{!isUploaded ? (
@@ -149,9 +134,8 @@ function DropZone(props) {
 						</div>
 					</form>
 				) : (
-					<div> */}
-			{/* <div className="progressbar">{isUploaded ? <ProgressBar /> : <></>}</div> */}
-			{/* <div>
+					<div>
+						<div>
 							<DragDropContext onDragEnd={onDragEndHandler}>
 								<Droppable droppableId="droppable" direction="horizontal">
 									{(provided, snapshot) => (
@@ -185,11 +169,9 @@ function DropZone(props) {
 									)}
 								</Droppable>
 							</DragDropContext>
-						</div> */}
-			{/* <div>
-							<MergePage files={Array.from(uploadedFile)} />
-						</div> */}
-			{/* {!isMerge ? (
+						</div>
+
+						{!isMerge ? (
 							<button onClick={mergeHandler} className="btn merge-btn" disabled={isMerging || !isImageLoaded}>
 								{!isMerging ? "Merge" : "Merging..."}
 							</button>
@@ -200,7 +182,7 @@ function DropZone(props) {
 						)}
 					</div>
 				)}
-			</div> */}
+			</div>
 			{/* <button onClick={mergePage}>go to files</button> */}
 			good
 		</div>
