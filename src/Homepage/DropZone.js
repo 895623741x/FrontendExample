@@ -122,48 +122,7 @@ function DropZone(props) {
 		setIsUploaded(false);
 	};
 	console.log(uploadedFile);
-	return (
-		<div>
-			<h1>JPG to PDF Converter</h1>
-			{!isUploaded ? <></> : <div className="progress-bar" />}
-			<div className="col-md-6">
-				<form id="#" action="/merge" method="post" encType="multipart/form-data">
-					<div className="files">
-						<input type="file" id="file-input" name="files" className="form-control" multiple onChange={fileHandler} />
-					</div>
-				</form>
-			</div>
-			<DragDropContext onDragEnd={onDragEndHandler}>
-				<Droppable droppableId="droppable" direction="horizontal">
-					{(provided, snapshot) => (
-						<div
-							ref={provided.innerRef}
-							style={getListStyle(snapshot.isDraggingOver)}
-							{...provided.droppableProps}
-							className="list"
-						>
-							{Array.from(uploadedFile).map((file, index) => (
-								<Draggable key={file.name} draggableId={file.name} index={index}>
-									{(provided, snapshot) => (
-										<div
-											ref={provided.innerRef}
-											{...provided.draggableProps}
-											{...provided.dragHandleProps}
-											style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-										>
-											<RotateLeftIcon />
 
-											<p className="p">{file.name}</p>
-										</div>
-									)}
-								</Draggable>
-							))}
-							{provided.placeholder}
-						</div>
-					)}
-				</Droppable>
-			</DragDropContext>
-		</div>
-	);
+	return <div>good</div>;
 }
 export default DropZone;
