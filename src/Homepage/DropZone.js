@@ -123,6 +123,14 @@ function DropZone(props) {
 	};
 	console.log(uploadedFile);
 
-	return <div>good</div>;
+	return (
+		<div>
+			<form id="#" action="/merge" method="post" encType="multipart/form-data">
+				<div className="files">
+					<input type="file" id="file-input" name="files" className="form-control" multiple onChange={fileHandler} />
+				</div>
+			</form>
+		</div>
+	);
 }
 export default DropZone;
