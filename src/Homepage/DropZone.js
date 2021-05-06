@@ -123,68 +123,40 @@ function DropZone(props) {
 	};
 	console.log(uploadedFile);
 	return (
-		<div className="upload-container">
-			<h1>JPG to PDF Converter</h1>
-			{!isUploaded ? <></> : <div className="progress-bar" />}
-			<div className="col-md-6">
-				{!isUploaded ? (
-					<form id="#" action="/merge" method="post" encType="multipart/form-data">
-						<div className="files">
-							<input type="file" id="file-input" name="files" className="form-control" multiple onChange={fileHandler} />
-						</div>
-					</form>
-				) : (
-					<div>
-						<div>
-							<DragDropContext onDragEnd={onDragEndHandler}>
-								<Droppable droppableId="droppable" direction="horizontal">
+		<div>
+			<DragDropContext onDragEnd={onDragEndHandler}>
+				<Droppable droppableId="droppable" direction="horizontal">
+					{(provided, snapshot) => (
+						<div
+							ref={provided.innerRef}
+							style={getListStyle(snapshot.isDraggingOver)}
+							{...provided.droppableProps}
+							className="list"
+						>
+							{Array.from(uploadedFile).map((file, index) => (
+								<Draggable key={file.name} draggableId={file.name} index={index}>
 									{(provided, snapshot) => (
 										<div
 											ref={provided.innerRef}
-											style={getListStyle(snapshot.isDraggingOver)}
-											{...provided.droppableProps}
-											className="list"
+											{...provided.draggableProps}
+											{...provided.dragHandleProps}
+											style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
 										>
-											{Array.from(uploadedFile).map((file, index) => (
-												<Draggable key={file.name} draggableId={file.name} index={index}>
-													{(provided, snapshot) => (
-														<div
-															ref={provided.innerRef}
-															{...provided.draggableProps}
-															{...provided.dragHandleProps}
-															style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-														>
-															{isImageLoaded ? (
-																<img src={require(`../assets/${file.name}`).default} alt="" width="200px" height="150px" />
-															) : (
-																<RotateLeftIcon />
-															)}
-															<p className="p">{file.name}</p>
-														</div>
-													)}
-												</Draggable>
-											))}
-											{provided.placeholder}
+											{isImageLoaded ? (
+												<img src={require(`../assets/${file.name}`).default} alt="" width="200px" height="150px" />
+											) : (
+												<RotateLeftIcon />
+											)}
+											<p className="p">{file.name}</p>
 										</div>
 									)}
-								</Droppable>
-							</DragDropContext>
+								</Draggable>
+							))}
+							{provided.placeholder}
 						</div>
-
-						{!isMerge ? (
-							<button onClick={mergeHandler} className="btn merge-btn" disabled={isMerging || !isImageLoaded}>
-								{!isMerging ? "Merge" : "Merging..."}
-							</button>
-						) : (
-							<button onClick={downloadHandler} className="btn merge-btn">
-								Download
-							</button>
-						)}
-					</div>
-				)}
-			</div>
-			{/* <button onClick={mergePage}>go to files</button> */}
-			good
+					)}
+				</Droppable>
+			</DragDropContext>
 		</div>
 	);
 }
