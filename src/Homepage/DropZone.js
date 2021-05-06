@@ -127,15 +127,11 @@ function DropZone(props) {
 			<h1>JPG to PDF Converter</h1>
 			{!isUploaded ? <></> : <div className="progress-bar" />}
 			<div className="col-md-6">
-				{!isUploaded ? (
-					<form id="#" action="/merge" method="post" encType="multipart/form-data">
-						<div className="files">
-							<input type="file" id="file-input" name="files" className="form-control" multiple onChange={fileHandler} />
-						</div>
-					</form>
-				) : (
-					<div>good</div>
-				)}
+				<form id="#" action="/merge" method="post" encType="multipart/form-data">
+					<div className="files">
+						<input type="file" id="file-input" name="files" className="form-control" multiple onChange={fileHandler} />
+					</div>
+				</form>
 			</div>
 			<DragDropContext onDragEnd={onDragEndHandler}>
 				<Droppable droppableId="droppable" direction="horizontal">
